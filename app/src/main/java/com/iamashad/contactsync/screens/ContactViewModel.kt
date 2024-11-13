@@ -20,35 +20,46 @@ class ContactViewModel @Inject constructor(
     private val app: Application
 ) : ViewModel() {
 
-    private val _users = MutableStateFlow<List<User>>(emptyList())
+    private val _users = MutableStateFlow<List<User>>(emptyList()) // Holds the list of users
     val users: StateFlow<List<User>> = _users
 
-    private val _progress = MutableStateFlow(0)
+    private val _progress = MutableStateFlow(0) // Tracks progress percentage
     val progress: StateFlow<Int> = _progress
 
-    private val _isSyncing = MutableStateFlow(false)
+    private val _isSyncing = MutableStateFlow(false) // Indicates if syncing is in progress
     val isSyncing: StateFlow<Boolean> = _isSyncing
 
+    /**
+     * Fetches today's users from the repository and updates the state.
+     */
     fun fetchTodayUsers() {
         viewModelScope.launch {
-            val userList = contactRepository.getTodayUsers()
-            _users.value = userList
+            try {
+                val userList = contactRepository.getTodayUsers() // Fetch today's users
+                _users.value = userList
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _users.value = emptyList() // Reset the user list on error
+            }
         }
     }
 
+    /**
+     * Syncs today's contacts to the device and updates progress and syncing state.
+     */
     fun syncContactsToDevice() {
         viewModelScope.launch {
             try {
-                Log.d("isSyncStatus", "Setting isSyncing to true")
+                Log.d("ContactSync", "Setting isSyncing to true")
                 _isSyncing.value = true
-                val users = contactRepository.getTodayUsers()
+                val users = contactRepository.getTodayUsers() // Fetch today's users
                 val totalUsers = users.size
                 _progress.value = 0
 
                 users.forEachIndexed { index, user ->
-                    addContactToDevice(app, user.name, user.phone)
-                    delay(300)
-                    _progress.value = ((index + 1) * 100) / totalUsers
+                    addContactToDevice(app, user.name, user.phone) // Sync contact to device
+                    delay(300) // Simulate delay for progress visualization
+                    _progress.value = ((index + 1) * 100) / totalUsers // Update progress
                     Log.d("ProgressStatus", "Progress updated to ${_progress.value}")
                 }
             } catch (e: Exception) {
