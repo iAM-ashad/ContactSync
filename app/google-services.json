@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "727981447476",
+    "project_id": "contactsync-e72d9",
+    "storage_bucket": "contactsync-e72d9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727981447476:android:e17309e5817cc1be8ead61",
+        "android_client_info": {
+          "package_name": "com.iamashad.contactsync"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnzUK-eVSq2BF78HP4vdr3C3gfc9vBdzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

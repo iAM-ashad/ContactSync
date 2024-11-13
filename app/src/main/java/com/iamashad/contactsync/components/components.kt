@@ -33,6 +33,7 @@ fun AppTopBar() {
 
 @Composable
 fun AppButtons(
+    isSyncing: Boolean = false,
     buttonText: String,
     onClick: () -> Unit,
     buttonColor: Color
@@ -45,7 +46,8 @@ fun AppButtons(
         shape = RoundedCornerShape(corner = CornerSize(3.dp)),
         elevation = ButtonDefaults.buttonElevation(
             defaultElevation = 5.dp
-        )
+        ),
+        enabled = !isSyncing
     ) {
         Text(
             text = buttonText

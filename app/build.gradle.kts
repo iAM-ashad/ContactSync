@@ -1,9 +1,12 @@
+import org.gradle.kotlin.dsl.android
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -51,6 +54,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     //HiltNavigation
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    //Firebase BOM
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    //Analytics
+    implementation("com.google.firebase:firebase-analytics")
+    //Firestore
+    implementation("com.google.firebase:firebase-firestore")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
